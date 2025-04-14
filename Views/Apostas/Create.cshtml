@@ -1,0 +1,105 @@
+@model LoteriaWeb.Models.Aposta
+
+@{
+    ViewData["Title"] = "Nova Aposta";
+}
+
+<h2 class="mb-4">Mega-Sena – Nova Aposta</h2>
+
+<form asp-action="Create" method="post" id="form-aposta">
+    <div class="mb-3">
+        <label asp-for="NomeJogador" class="form-label fw-semibold">Nome do Jogador</label>
+        <input asp-for="NomeJogador" class="form-control" placeholder="Digite seu nome" required />
+        <span asp-validation-for="NomeJogador" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Escolha 6 números:</label>
+        <div id="grade-numeros" style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px;">
+            @for (int i = 1; i <= 60; i++)
+            {
+                <button type="button"
+                        class="numero-btn btn numero-dourado rounded-circle p-0"
+                        data-numero="@i"
+                        style="width: 42px; height: 42px;">
+                    @i.ToString("D2")
+                </button>
+            }
+        </div>
+    </div>
+
+    <input type="hidden" asp-for="NumerosSelecionados" id="NumerosSelecionados" />
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Confirmar Aposta</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+    </div>
+</form>
+
+<style>
+    .numero-dourado {
+        border: 2px solid #D4AF37;
+        background-color: transparent;
+        color: #D4AF37;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: background-color 0.2s, color 0.2s;
+    }
+
+    .numero-dourado.selecionado {
+        background-color: #D4AF37;
+        color: #000;
+    }
+
+    .btn-primary {
+        background-color: #D4AF37;
+        border: none;
+        font-weight: bold;
+    }
+
+    .btn-primary:hover {
+        background-color: #c9a733;
+    }
+
+    .btn-secondary {
+        background-color: #444;
+        color: #fff;
+    }
+
+    .btn-secondary:hover {
+        background-color: #666;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        const numerosSelecionados = new Set();
+
+        document.querySelectorAll(".numero-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const numero = btn.dataset.numero;
+
+                if (numerosSelecionados.has(numero)) {
+                    numerosSelecionados.delete(numero);
+                    btn.classList.remove("selecionado");
+                } else {
+                    if (numerosSelecionados.size >= 6) {
+                        alert("Você só pode escolher 6 números.");
+                        return;
+                    }
+                    numerosSelecionados.add(numero);
+                    btn.classList.add("selecionado");
+                }
+
+                document.getElementById("NumerosSelecionados").value = Array.from(numerosSelecionados).join(",");
+            });
+        });
+
+        document.getElementById("form-aposta").addEventListener("submit", function (e) {
+            if (numerosSelecionados.size !== 6) {
+                alert("Selecione exatamente 6 números para prosseguir.");
+                e.preventDefault();
+            }
+        });
+    </script>
+}

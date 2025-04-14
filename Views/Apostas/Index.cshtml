@@ -1,0 +1,52 @@
+@model IEnumerable<LoteriaWeb.Models.Aposta>
+
+@{
+    ViewData["Title"] = "Minhas Apostas";
+}
+
+<h2 class="mb-1 text-warning">Minhas Apostas</h2>
+<h6 class="text-muted mb-4">Sistema oficial da Lottera</h6>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Nenhuma aposta registrada até o momento.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-dark table-hover align-middle">
+            <thead style="background-color: #D4AF37; color: #1b1b1b;">
+                <tr>
+                    <th>Nome do Jogador</th>
+                    <th>Números Escolhidos</th>
+                    <th>Data da Aposta</th>
+                    <th style="width: 130px;">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var aposta in Model)
+                {
+                    <tr>
+                        <td>@aposta.NomeJogador</td>
+                        <td>
+                            @foreach (var numero in aposta.NumerosSelecionados.Split(','))
+                            {
+                                <span class="badge bg-warning text-dark rounded-circle mx-1"
+                                      style="width: 35px; height: 35px; display: inline-flex; justify-content: center; align-items: center; font-weight: 600;">
+                                    @numero.PadLeft(2, '0')
+                                </span>
+                            }
+                        </td>
+                        <td>@aposta.DataAposta.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@aposta.Id" class="btn btn-sm btn-warning fw-semibold">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@aposta.Id" class="btn btn-sm btn-danger fw-semibold ms-1">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

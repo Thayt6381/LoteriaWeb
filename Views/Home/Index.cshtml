@@ -1,0 +1,47 @@
+﻿@model IEnumerable<LoteriaWeb.Models.Aposta>
+
+@{
+    ViewData["Title"] = "Início";
+}
+
+<h2 class="mb-4 text-warning fw-bold">Últimas Apostas</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info shadow-sm">
+        Nenhuma aposta registrada ainda,
+        clique em <a href="/Apostas/Create" class="alert-link text-warning fw-semibold">fazer uma nova aposta</a>.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-dark table-hover align-middle shadow-sm">
+            <thead style="background-color: #D4AF37; color: #1b1b1b;" class="text-center">
+                <tr>
+                    <th>Nome do Jogador</th>
+                    <th>Números Escolhidos</th>
+                    <th>Data da Aposta</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var aposta in Model.OrderByDescending(a => a.DataAposta).Take(10))
+                {
+                    <tr>
+                        <td class="fw-semibold">@aposta.NomeJogador</td>
+                        <td>
+                            @foreach (var numero in aposta.NumerosSelecionados.Split(','))
+                            {
+                                <span class="badge bg-warning text-dark rounded-circle mx-1"
+                                      style="width: 36px; height: 36px; display: inline-flex; justify-content: center; align-items: center; font-weight: 600;">
+                                    @numero.PadLeft(2, '0')
+                                </span>
+                            }
+                        </td>
+                        <td>@aposta.DataAposta.ToString("dd/MM/yyyy HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

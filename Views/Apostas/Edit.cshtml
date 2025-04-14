@@ -1,0 +1,39 @@
+@model LoteriaWeb.Models.Aposta
+
+@{
+    ViewData["Title"] = "Editar Aposta";
+}
+
+<h2 class="mt-4 mb-3 text-warning">Editar Aposta</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="NomeJogador" class="form-label fw-semibold">Nome do Jogador</label>
+        <input asp-for="NomeJogador" class="form-control" required />
+        <span asp-validation-for="NomeJogador" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NumerosSelecionados" class="form-label fw-semibold">Números Selecionados</label>
+        <input asp-for="NumerosSelecionados" class="form-control" required />
+        <small class="form-text text-muted">Separe os números por vírgula. Ex: 05,12,23,34,41,59</small>
+        <span asp-validation-for="NumerosSelecionados" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DataAposta" class="form-label fw-semibold">Data da Aposta</label>
+        <input asp-for="DataAposta" class="form-control" readonly />
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary fw-semibold">Salvar</button>
+        <a asp-action="Index" class="btn btn-secondary fw-semibold ms-2">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

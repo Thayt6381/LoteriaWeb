@@ -1,0 +1,36 @@
+@model LoteriaWeb.Models.Aposta
+
+@{
+    ViewData["Title"] = "Detalhes da Aposta";
+}
+
+<h2 class="mt-4 mb-3 text-warning">Detalhes da Aposta</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3 fw-semibold">Nome do Jogador:</dt>
+            <dd class="col-sm-9">@Model.NomeJogador</dd>
+
+            <dt class="col-sm-3 fw-semibold">Números Selecionados:</dt>
+            <dd class="col-sm-9">
+                @foreach (var numero in Model.NumerosSelecionados.Split(','))
+                {
+                    <span class="badge rounded-circle mx-1"
+                          style="background-color: #D4AF37; color: #0e0e0e; width: 35px; height: 35px; display: inline-flex; justify-content: center; align-items: center;">
+                        @numero.PadLeft(2, '0')
+                    </span>
+                }
+            </dd>
+
+            <dt class="col-sm-3 fw-semibold">Data da Aposta:</dt>
+            <dd class="col-sm-9">@Model.DataAposta.ToString("dd/MM/yyyy HH:mm")</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning fw-semibold">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary ms-2 fw-semibold">Voltar</a>
+</div>
+

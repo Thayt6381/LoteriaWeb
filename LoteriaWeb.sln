@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoteriaWeb", "LoteriaWeb.csproj", "{B5D50974-573B-49B4-6E47-73F7414C1266}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5D50974-573B-49B4-6E47-73F7414C1266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D50974-573B-49B4-6E47-73F7414C1266}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D50974-573B-49B4-6E47-73F7414C1266}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D50974-573B-49B4-6E47-73F7414C1266}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E4E78718-7F9C-45B3-A09B-8299E6E61CD9}
+	EndGlobalSection
+EndGlobal
